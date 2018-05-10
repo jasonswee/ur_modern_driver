@@ -9,7 +9,8 @@
 <launch>
   
   <!-- robot_ip: IP-address of the robot's socket-messaging server -->
-  <arg name="robot_ip"/>
+  <arg name="robot_ip" default="$(env UR5_IP)"/> 
+<!--192.168.26.2"-->
   <arg name="limited" default="false"/>
   <arg name="min_payload"  default="0.0"/>
   <arg name="max_payload"  default="5.0"/>
@@ -27,4 +28,21 @@
     <arg name="max_payload"  value="$(arg max_payload)"/>
   </include>
 
+  <include file="$(find ur5_moveit_config)/launch/ur5_moveit_planning_execution.launch">
+  </include>
+
+  <include file="$(find ur5_moveit_config)/launch/moveit_rviz.launch">
+	<arg name="config"  value="true" />
+  </include>
+
+  
+<!-- Connect tool0_controller to base using floating joint -->
+<!--
+<link name="tool0_controller"/>
+<joint name="base-tool0_controller_floating_joint" type="floating">
+  <origin xyz="0 0 0.16" rpy="0 0 0"/>
+  <parent link=base"/>
+  <child link="tool0_controller"/>
+</joint>
+-->
 </launch>
